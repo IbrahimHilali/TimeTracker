@@ -96,7 +96,7 @@
         methods: {
             flowInitialize() {
                 this.flow = new Flow({
-                    target: '/home/upload',
+                    target: '/FilesManger/upload',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

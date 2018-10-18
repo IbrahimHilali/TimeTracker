@@ -19,8 +19,8 @@ $this->get('/home', 'HomeController@index')->name('home');
 $this->get('/management/invoice', 'HomeController@invoice')->name('invoice');
 $this->get('/management/peakTime', 'HomeController@statisticalService')->name('peakTime');
 
-$this->get('/home/upload', 'HomeController@getFile')->name('upload');
-$this->post('/home/upload', 'HomeController@postFile');
+$this->get('/FilesManger/upload', 'FilesManagerController@getFile')->name('upload');
+$this->post('/FilesManger/upload', 'FilesManagerController@postFile');
 
 //projects
 $this->get('/projects', 'ProjectController@index');

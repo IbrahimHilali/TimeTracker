@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Flow\Config;
 use Flow\File;
+use Illuminate\Support\Facades\Input;
 
 
 class HomeController extends Controller
@@ -33,17 +34,27 @@ class HomeController extends Controller
         return view('home');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function invoice()
     {
         return view('management.invoice');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function statisticalService()
     {
         $this->peakTime();
         return view('logs.index');
     }
 
+    /**
+     * @param int $day
+     * @param int $project
+     */
     public function peakTime($day = 1, int $project = 1)
     {
         $timers = Project::where('id', '=', $project)->with('timers')->get()->first()->timers()->get();
@@ -51,6 +62,10 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * @param $timers
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     protected function sharedTimePointsScanner($timers)
     {
         $numberCrossedTimer = [];
@@ -74,49 +89,6 @@ class HomeController extends Controller
     }
 
 
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function getFile()
-    {
-
-        $file = $this->initFlowFile();
-
-        if ($file->checkChunk()) {
-            return response("Getting File");
-        } else {
-            return response("No Content", 204);
-        }
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function postFile()
-    {
-        $file = $this->initFlowFile();
-
-        if ($file->validateChunk()) {
-            $file->saveChunk();
-        } else {
-            return response("Bad Request", 400);
-        }
-    }
-
-    /**
-     * @return File
-     */
-    protected function initFlowFile()
-    {
-        $config = new Config();
-        if (!is_dir(storage_path() . '/uploads/temp/')) {
-            mkdir(storage_path() . '/uploads/temp/', 0775, true);
-        }
-
-        $config->setTempDir(storage_path() . '/uploads/temp/');
-
-        return new File($config);
-    }
 
 
 }

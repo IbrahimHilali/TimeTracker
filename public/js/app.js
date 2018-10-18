@@ -65091,7 +65091,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         flowInitialize: function flowInitialize() {
             this.flow = new __WEBPACK_IMPORTED_MODULE_0__flowjs_flow_js___default.a({
-                target: '/home/upload',
+                target: '/FilesManger/upload',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
